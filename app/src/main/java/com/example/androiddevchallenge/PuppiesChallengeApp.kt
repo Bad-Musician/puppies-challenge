@@ -17,10 +17,17 @@ package com.example.androiddevchallenge
 
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.model.DogModel
+import com.example.androiddevchallenge.ui.DetailedDogsScreen
+import com.example.androiddevchallenge.ui.DogsListScreen
 import com.example.androiddevchallenge.ui.theme.background
+
+const val PUPPY_KEY = "puppy"
 
 @Composable
 fun PuppiesChallengeApp() {
@@ -28,7 +35,16 @@ fun PuppiesChallengeApp() {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "puppiesList") {
             composable("puppiesList") { DogsListScreen(navController = navController) }
-            composable("puppiesDetailed") { }
+            composable(
+                "puppiesDetailed",
+                arguments = listOf(
+                    navArgument(PUPPY_KEY) {
+                        type = NavType.SerializableType(DogModel::class.java)
+                    }
+                )
+            ) {
+                DetailedDogsScreen(navController = navController)
+            }
         }
     }
 }

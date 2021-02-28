@@ -15,10 +15,12 @@
  */
 package com.example.androiddevchallenge.model
 
+import java.io.Serializable
+
 data class DogModel(
     val name: String,
     val breed: String,
     val photo: String,
     val city: String,
     val isAdopted: Boolean
-)
+) : Serializable
